@@ -1,0 +1,3 @@
+The SCONE Platform is a generic platform to execute applications inside of trusted execution environments like Intel SGX. It can be used in different settings with multiple stakeholders that might not all trust each other: User, Application Provider, Data Owner, and Auditor.
+
+SCONE protects the IP (intellectual property) of multiple stakeholders. In this section, we introduce the different stakeholders and sketch how SCONE can be used to protect the data, code, and secrets not only from attackers but also from other stakeholders. We also give some recommendations - in the form of forward links - on how one could proceed reading about SCONE.

@@ -1,0 +1,23 @@
+name: volume_policy
+version: "0.3"
+
+services:
+   - name: volume_service
+     image_name: volume-demo:1.0
+     command: python /demo/test.py 
+     mrenclaves: [$MRENCLAVE]
+     pwd: /
+
+images:
+   - name: volume-demo:1.0
+     volumes:
+        - name: python_volume
+          path: /demo/encrypted_volume
+
+volumes:
+  - name: python_volume
+
+security:
+  attestation:
+    tolerate: [debug-mode, hyperthreading, outdated-tcb]
+    ignore_advisories: "*"    

@@ -1,0 +1,28 @@
+version: '3.2'
+services:
+    las:
+        image: registry.scontain.com:5050/sconecuratedimages/services:las-scone5.1
+        devices:
+         - "/dev/isgx"
+    cas:
+        image: registry.scontain.com:5050/sconecuratedimages/services:cas.preprovisioned-scone5.1
+        devices:
+         - "/dev/isgx"
+        depends_on:
+         - las
+    volume-demo:
+        image: registry.scontain.com:5050/sconecuratedimages/apps:python-3.7.3-alpine3.10-scone5.1
+        environment:
+         - SCONE_MODE=hw
+         - SCONE_HEAP=512M
+         - SCONE_SYSLIBS=1
+         - SCONE_LOG=3
+         - SCONE_ALLOW_DLOPEN=2
+        devices:
+         - "/dev/isgx"
+        command: sh -c "apk add curl && cd /demo/ && ./helper_scripts/alpine_wait_for_las_and_cas.sh && ./run.sh"
+        depends_on:
+         - las
+         - cas
+        volumes:
+         - .:/demo
